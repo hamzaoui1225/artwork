@@ -1,0 +1,20 @@
+services:
+
+  artwork-frontend:
+    build: 'interview-front'
+    container_name: artwork-frontend
+    networks:
+      - artwork
+    ports:
+      - 80:80
+
+  artwork-backend:
+    build: 'interview'
+    container_name: artwork-backend
+    networks:
+      - artwork
+    ports:
+      - 8080:8080
+
+networks:
+  artwork:

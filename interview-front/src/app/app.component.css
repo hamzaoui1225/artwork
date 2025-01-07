@@ -1,0 +1,6 @@
+.input-image {
+  background-size: 28px 28px;
+  background-position: 10px 6px;
+  background-repeat: no-repeat;
+  @apply justify-center w-96 h-10 text-black outline-none border-none rounded-2xl pr-3 pl-12;
+}

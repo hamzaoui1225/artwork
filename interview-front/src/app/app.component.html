@@ -1,0 +1,15 @@
+<div class="h-16 bg-second-bg sticky mb-5 flex">
+  <a href="/artwork">
+    <div class="text-4xl underline-offset-[7px] underline pl-10 pt-2 text-center">
+      <span class="font-bold">ART</span><span class="font-thin">gallery</span>
+    </div>
+  </a>
+
+  <div class="w-full h-full flex items-center justify-center">
+    <input class="input-image bg-[url('/find.png')]" placeholder="Search..." (keydown)="onKeydown($event)"/>
+  </div>
+</div>
+
+<div class="p-3">
+  <router-outlet></router-outlet>
+</div>

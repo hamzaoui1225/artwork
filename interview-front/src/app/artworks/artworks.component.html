@@ -1,0 +1,65 @@
+<div *ngIf="loading; else loadingBlock">
+  <div class="w-full h-72 translate-y-1/2 content-center items-center text-center justify-center flex">
+    <img width="80" src="/loading.gif"  alt="Loading..."/>
+  </div>
+</div>
+<ng-template #loadingBlock>
+  <div *ngIf="query">
+    <span class="font-bold text-2xl pl-4">Search: {{query}}</span>
+  </div>
+  <div class="grid sm:grid-rows-2 md:grid-rows-3 lg:grid-cols-4 xl:grid-cols-4 grid-flow-row gap-2 pt-5">
+    <div *ngFor="let art of artworks?.data">
+      <a href="/artwork/{{art.id}}">
+        <div class="pb-2 rounded-2xl overflow-hidden w-full h-52 flex justify-center">
+          <img width="200" height="100" [src]="art?.image" alt="test">
+        </div>
+        <div class="line-clamp-1 text-center justify-center font-bold">{{ art.title }}</div>
+        <p *ngIf="art.short_description != undefined; else description" class="font-thin line-clamp-4 sm:line-clamp-2 p-2">{{ art.short_description }}</p>
+        <ng-template  #description>
+          <div *ngIf="art.description != undefined; else provenance" class="font-thin line-clamp-4 sm:line-clamp-2 p-2" [innerHTML]="art.description"></div>
+          <ng-template #provenance>
+            <div class="font-thin line-clamp-4 sm:line-clamp-2 p-2" [innerHTML]="art.provenance_text"></div>
+          </ng-template>
+        </ng-template>
+      </a>
+    </div>
+  </div>
+
+  <div class="w-full p-7">
+    <div class="flex justify-center">
+      <div (click)="previousPage()" *ngIf="artworks.pagination.current != 1" class="flex items-center pr-3">
+        <svg class="hover:fill-gray-400" fill="#FFFFFF" height="18px" width="18px" xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 330 330" xml:space="preserve">
+      <path d="M165,0C74.019,0,0,74.019,0,165s74.019,165,165,165s165-74.019,165-165S255.981,0,165,0z M205.606,234.394
+        c5.858,5.857,5.858,15.355,0,21.213C202.678,258.535,198.839,260,195,260s-7.678-1.464-10.606-4.394l-80-79.998
+        c-2.813-2.813-4.394-6.628-4.394-10.606c0-3.978,1.58-7.794,4.394-10.607l80-80.002c5.857-5.858,15.355-5.858,21.213,0
+        c5.858,5.857,5.858,15.355,0,21.213l-69.393,69.396L205.606,234.394z"/>
+      </svg>
+      </div>
+      <div class="flex gap-2 text-sm">
+        <div>
+          Page
+          <span class="font-bold">
+        {{ artworks.pagination.current }}
+      </span>
+        </div>
+        <div>
+          of
+          <span class="font-bold">
+        {{ artworks.pagination.total }}
+      </span>
+        </div>
+        <div *ngIf="artworks.pagination.current != artworks.pagination.total" (click)="nextPage()" class="flex items-center pl-1">
+          <svg class="hover:fill-gray-400" fill="#FFFFFF" height="18px" width="18px" xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 330 330" xml:space="preserve">
+      <path d="M165,0C74.019,0,0,74.019,0,165s74.019,165,165,165s165-74.019,165-165S255.981,0,165,0z M225.606,175.605
+        l-80,80.002C142.678,258.535,138.839,260,135,260s-7.678-1.464-10.606-4.394c-5.858-5.857-5.858-15.355,0-21.213l69.393-69.396
+        l-69.393-69.392c-5.858-5.857-5.858-15.355,0-21.213c5.857-5.858,15.355-5.858,21.213,0l80,79.998
+        c2.814,2.813,4.394,6.628,4.394,10.606C230,168.976,228.42,172.792,225.606,175.605z"/>
+      </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>

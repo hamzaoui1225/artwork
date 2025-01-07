@@ -1,0 +1,21 @@
+
+<div class="flex gap-2 justify-evenly">
+  <div class="bg-no-repeat bg-center h-[25rem] w-[70rem]" [style]="'background-image: url('+artwork.data.image+')'">
+  </div>
+  <div class=" pr-2 w-[90rem]">
+    <div class="flex justify-between">
+      <p class="font-bold text-4xl">{{artwork.data.title}}</p>
+      <p class="text-3xl">{{artwork.data.date_end}}</p>
+    </div>
+    <div *ngIf="artwork.data.description != undefined; else description" class="font-thin line-clamp-4 sm:line-clamp-2 p-2" [innerHTML]="artwork.data.description"></div>
+    <ng-template  #description>
+      <div *ngIf="artwork.data.short_description != undefined; else provenance" class="font-thin line-clamp-4 sm:line-clamp-2 p-2" [innerHTML]="artwork.data.short_description"></div>
+      <ng-template #provenance>
+        <div class="font-thin line-clamp-4 sm:line-clamp-2 p-2" [innerHTML]="artwork.data.provenance_text"></div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>
+
+
+
