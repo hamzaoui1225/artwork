@@ -18,7 +18,7 @@ public class ArtWorkController {
 
     public ArtWorkController(ArtWorkService artService) {
         this.artService = artService;
-    }
+    } //TODO why not with lombok annotation? Why not with Dependency Injection?
 
     @GetMapping("artwork")
     ArtWorkList getArtWorkPage(@RequestParam Integer page) throws APIException {

@@ -2,6 +2,9 @@ package com.verodigit.interview.bean.client;
 
 import com.verodigit.interview.model.artwork.ArtWorkList;
 import com.verodigit.interview.model.artwork.ArtWorkSingle;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -9,16 +12,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Arrays;
 
+import static com.verodigit.interview.config.AdapterWebClientConfig.ADAPTER_WEBCLIENT_BEAN_NAME;
+
 @Component
 public class ArtWorkClient {
+
+    @Autowired
+    @Qualifier(ADAPTER_WEBCLIENT_BEAN_NAME)
+    @NotNull
     private final WebClient client;
 
-    public ArtWorkClient(@Value("${artWork.baseUrl}") String baseUrl
-    ){
-        this.client = WebClient.builder()
-                .baseUrl(baseUrl)
-                .build();
-    }
+
 
     @Cacheable("artWorkPages")
     public ArtWorkList fetchArtWorkData(Integer pageNumber) {
