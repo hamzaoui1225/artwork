@@ -5,6 +5,7 @@ import com.verodigit.interview.exception.APIException;
 import com.verodigit.interview.model.artwork.ArtWorkList;
 import com.verodigit.interview.model.artwork.ArtWorkSingle;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +23,7 @@ public class ArtWorkService {
     }
 
     public ArtWorkList searchForArtWorks(String query, Integer page) throws APIException {
-        if (query == null || query.trim().isBlank()) throw new APIException("query must be present.");
+        if (StringUtils.isEmpty(query)) throw new APIException("query must be present.");
         if (page < 1) throw new APIException("page number must be positive");
         var res = client.findArtWork(query, page);
         fixImageList(res);
